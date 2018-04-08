@@ -26,7 +26,7 @@ public class NodeJogo8 extends Node{
 						expandedNodes.add(child);
 					}
 					
-					if(i < 2) {
+					if(i < (order - 1)) {
 						int[][] childContent = NodeUtils.copyContente(this.getContent());
 						childContent[i][j] = childContent[i + 1][j];
 						childContent[i + 1][j] = 0;
@@ -42,7 +42,7 @@ public class NodeJogo8 extends Node{
 						expandedNodes.add(child);
 					}
 					
-					if(j < 2) {
+					if(j < (order - 1)) {
 						int[][] childContent = NodeUtils.copyContente(this.getContent());
 						childContent[i][j] = childContent[i][j + 1];
 						childContent[i][j + 1] = 0;

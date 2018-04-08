@@ -1,6 +1,12 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
+import java.util.Stack;
+
+import utils.NodeUtils;
 
 public abstract class Node {
 
@@ -14,6 +20,53 @@ public abstract class Node {
 	
 	public abstract List<Node> expandNode();
 	public abstract boolean verifyContent();
+	
+	public Node breadthFirstSearch() {
+		List<Node> statesFrontier = new ArrayList<Node>();	
+		statesFrontier.add(this);
+		Queue<Node> queueNodes = new LinkedList<>();
+		queueNodes.add(this);
+		NodeUtils.printStates(statesFrontier, this, null);
+		while(!queueNodes.isEmpty()) {
+			Node nodeHead = queueNodes.element();
+			if(nodeHead.verifyContent()) {
+				return nodeHead;
+			}
+			List<Node> childrens = nodeHead.expandNode();
+			for(Node node : childrens) {
+				if(!NodeUtils.queueContainsNode(statesFrontier, node)) {
+					queueNodes.add(node);
+					statesFrontier.add(node);
+				}
+			}
+			NodeUtils.printStates(statesFrontier, queueNodes.element(), childrens);
+			queueNodes.poll();
+		}
+		return null;
+	}
+	
+	public Node depthFirstSearch() {
+		List<Node> statesFrontier = new ArrayList<Node>();
+		statesFrontier.add(this);
+		Stack<Node> stackNodes = new Stack<Node>();
+		stackNodes.add(this);
+		NodeUtils.printStates(statesFrontier, this, null);
+		while(!stackNodes.isEmpty()) {
+			Node nodeHead = stackNodes.pop();
+			if(nodeHead.verifyContent()) {
+				return nodeHead;
+			}
+			List<Node> childrens = nodeHead.expandNode();
+			for(Node node : childrens) {
+				if(!NodeUtils.queueContainsNode(statesFrontier, node)) {
+					stackNodes.add(node);
+					statesFrontier.add(node);
+				}
+			}
+			NodeUtils.printStates(statesFrontier, nodeHead, childrens);
+		}
+		return null;
+	}
 	
 	public int[][] getContent() {
 		return content;
