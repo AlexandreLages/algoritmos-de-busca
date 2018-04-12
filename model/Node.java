@@ -26,7 +26,6 @@ public abstract class Node {
 		statesFrontier.add(this);
 		Queue<Node> queueNodes = new LinkedList<>();
 		queueNodes.add(this);
-		NodeUtils.printStates(statesFrontier, this, null);
 		while(!queueNodes.isEmpty()) {
 			Node nodeHead = queueNodes.element();
 			if(nodeHead.verifyContent()) {
@@ -39,7 +38,6 @@ public abstract class Node {
 					statesFrontier.add(node);
 				}
 			}
-			NodeUtils.printStates(statesFrontier, queueNodes.element(), childrens);
 			queueNodes.poll();
 		}
 		return null;
@@ -50,7 +48,6 @@ public abstract class Node {
 		statesFrontier.add(this);
 		Stack<Node> stackNodes = new Stack<Node>();
 		stackNodes.add(this);
-		NodeUtils.printStates(statesFrontier, this, null);
 		while(!stackNodes.isEmpty()) {
 			Node nodeHead = stackNodes.pop();
 			if(nodeHead.verifyContent()) {
@@ -63,7 +60,27 @@ public abstract class Node {
 					statesFrontier.add(node);
 				}
 			}
-			NodeUtils.printStates(statesFrontier, nodeHead, childrens);
+		}
+		return null;
+	}
+	
+	public Node bestFirstSearch() {
+		List<Node> statesFrontier = new ArrayList<Node>();
+		statesFrontier.add(this);
+		Stack<Node> stackNodes = new Stack<Node>();
+		stackNodes.add(this);
+		while(!stackNodes.isEmpty()) {
+			Node nodeHead = stackNodes.pop();
+			if(nodeHead.verifyContent()) {
+				return nodeHead;
+			}
+			List<Node> childrens = nodeHead.expandNode();
+			for(Node node : childrens) {
+				if(!NodeUtils.queueContainsNode(statesFrontier, node)) {
+					stackNodes.add(node);
+					statesFrontier.add(node);
+				}
+			}
 		}
 		return null;
 	}

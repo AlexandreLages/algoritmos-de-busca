@@ -1,6 +1,7 @@
 package utils;
 
 import java.util.List;
+import java.util.Stack;
 
 import model.Node;
 
@@ -64,6 +65,25 @@ public class NodeUtils {
 			}
 		}
 		printContent(node.getContent());
+	}
+	
+	public static List<Node> listNode(Node node, List<Node> nodes) {
+		List<Node> nodesResult = nodes;
+		if(node != null) {
+			if(node.getFather() != null) {
+				nodesResult.add(node);
+				listNode(node.getFather(), nodesResult);
+			}
+		}
+		return nodesResult;
+	}
+	
+	public static Stack<Node> listToStack(List<Node> nodes) {
+		Stack<Node> nodesStack = new Stack<>();
+		for(Node node : nodes) {
+			nodesStack.push(node);
+		}
+		return nodesStack;
 	}
 	
 	public static void printStates(List<Node> statesFrontier, Node nodeState, List<Node> childrens) {
