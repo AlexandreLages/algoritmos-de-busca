@@ -23,7 +23,7 @@ public class Report extends JFrame {
 	 * Create the frame.
 	 */
 	public Report(Node node) {
-		setTitle("Resultados");
+		setTitle("Resultados da Busca");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
