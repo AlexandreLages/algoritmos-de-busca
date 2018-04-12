@@ -7,8 +7,8 @@ import utils.NodeUtils;
 
 public class NodeJogo8 extends Node{
 
-	public NodeJogo8(int[][] content, Node father) {
-		super(content, father);
+	public NodeJogo8(int[][] content, Node father, Algorihtm algorihtm) {
+		super(content, father, algorihtm);
 	}
 
 	@Override
@@ -22,7 +22,7 @@ public class NodeJogo8 extends Node{
 						int[][] childContent = NodeUtils.copyContente(this.getContent());
 						childContent[i][j] = childContent[i - 1][j];
 						childContent[i - 1][j] = 0;
-						Node child = new NodeJogo8(childContent, this);
+						Node child = new NodeJogo8(childContent, this, this.getAlgorihtm());
 						expandedNodes.add(child);
 					}
 					
@@ -30,7 +30,7 @@ public class NodeJogo8 extends Node{
 						int[][] childContent = NodeUtils.copyContente(this.getContent());
 						childContent[i][j] = childContent[i + 1][j];
 						childContent[i + 1][j] = 0;
-						Node child = new NodeJogo8(childContent, this);
+						Node child = new NodeJogo8(childContent, this, this.getAlgorihtm());
 						expandedNodes.add(child);
 					}
 					
@@ -38,7 +38,7 @@ public class NodeJogo8 extends Node{
 						int[][] childContent = NodeUtils.copyContente(this.getContent());
 						childContent[i][j] = childContent[i][j - 1];
 						childContent[i][j - 1] = 0;
-						Node child = new NodeJogo8(childContent, this);
+						Node child = new NodeJogo8(childContent, this, this.getAlgorihtm());
 						expandedNodes.add(child);
 					}
 					
@@ -46,7 +46,7 @@ public class NodeJogo8 extends Node{
 						int[][] childContent = NodeUtils.copyContente(this.getContent());
 						childContent[i][j] = childContent[i][j + 1];
 						childContent[i][j + 1] = 0;
-						Node child = new NodeJogo8(childContent, this);
+						Node child = new NodeJogo8(childContent, this, this.getAlgorihtm());
 						expandedNodes.add(child);
 					}
 				}

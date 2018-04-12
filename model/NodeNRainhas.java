@@ -4,8 +4,8 @@ import java.util.List;
 
 public class NodeNRainhas extends Node{
 
-	public NodeNRainhas(int[][] content, Node father) {
-		super(content, father);
+	public NodeNRainhas(int[][] content, Node father, Algorihtm algorihtm) {
+		super(content, father, algorihtm);
 	}
 
 	@Override

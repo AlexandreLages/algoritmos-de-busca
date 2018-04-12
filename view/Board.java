@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import model.Algorihtm;
 import model.Node;
 import model.NodeJogo8;
 import utils.NodeUtils;
@@ -245,7 +246,7 @@ public class Board extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				int[][] matriz = new int[3][3];
 				createMatriz(matriz);
-				Node nodeInit = new NodeJogo8(matriz, null);
+				Node nodeInit = new NodeJogo8(matriz, null, Algorihtm.LARGURA);
 				nodeResult = nodeInit.breadthFirstSearch();
 				nodesResult = new ArrayList<>();
 				new Thread(threadResult).start();
@@ -262,7 +263,7 @@ public class Board extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				int[][] matriz = new int[3][3];
 				createMatriz(matriz);
-				Node nodeInit = new NodeJogo8(matriz, null);
+				Node nodeInit = new NodeJogo8(matriz, null, Algorihtm.PROFUNDIDADE);
 				nodeResult = nodeInit.depthFirstSearch();
 				nodesResult = new ArrayList<>();
 				new Thread(threadResult).start();
@@ -321,7 +322,7 @@ public class Board extends JFrame {
 				if(verifyMatriz()) {
 					buttonBreadthSearch.setEnabled(true);
 					buttonDepthSearch.setEnabled(true);
-					JOptionPane.showMessageDialog(contentPane, "Passe um tabuleiro ainda não resolvido!", "Tabuleiro Resolvido", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(contentPane, "Este tabuleiro já está ordenado. Embaralhe o tabuleiro.", "Tabuleiro Resolvido", JOptionPane.WARNING_MESSAGE);
 				}
 				try {
 					nodesTree = NodeUtils.listNode(nodeResult, nodesResult);
@@ -356,7 +357,9 @@ public class Board extends JFrame {
 					if(verifyMatriz()) {
 						buttonBreadthSearch.setEnabled(true);
 						buttonDepthSearch.setEnabled(true);
-						JOptionPane.showMessageDialog(contentPane, "O tabuleiro foi resolvido!", "Tabuleiro Resolvido", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(contentPane, "O tabuleiro foi ordenado com sucesso.", "Tabuleiro Resolvido", JOptionPane.INFORMATION_MESSAGE);
+						Report report = new Report(nodeResult);
+						report.setVisible(true);
 					}
 				} catch(InterruptedException e) {
 					e.printStackTrace();

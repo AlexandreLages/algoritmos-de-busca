@@ -12,10 +12,16 @@ public abstract class Node {
 
 	private int[][] content;
 	private Node father;
+	private Algorihtm algorihtm;
 	
-	public Node(int[][] content, Node father) {
+	public Node(int[][] content, Node father, Algorihtm algorihtm) {
 		this.content = content;
 		this.father = father;
+		if(this.father != null) {
+			this.algorihtm = this.father.algorihtm;
+		} else {
+			this.algorihtm = algorihtm;
+		}
 	}
 	
 	public abstract List<Node> expandNode();
@@ -99,5 +105,13 @@ public abstract class Node {
 	
 	public void setFather(Node father) {
 		this.father = father;
+	}
+
+	public Algorihtm getAlgorihtm() {
+		return algorihtm;
+	}
+
+	public void setAlgorihtm(Algorihtm algorihtm) {
+		this.algorihtm = algorihtm;
 	}
 }
